@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resiliencia Hídrica en Sonora</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🌊 Resiliencia</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><span>🏠</span> Inicio</a></li>
+                    <li><a href="#"><span>📊</span> Datos</a></li>
+                    <li><a href="#"><span>📈</span> Gráficas</a></li>
+                    <li><a href="#"><span>🔮</span> Proyecciones</a></li>
+                    <li><a href="#"><span>❓</span> Ayuda</a></li>
+                    <li><a href="#"><span>📞</span> Contacto</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <header class="header">
+                <h1>Resiliencia Hídrica</h1>
+                <div class="user-actions">
+                    <button class="btn help">Ayuda</button>
+                    <button class="btn profile">👤 Perfil</button>
+                </div>
+            </header>
+            <section class="description">
+                <p>Conoce la situación hídrica en tu región y utiliza nuestras herramientas avanzadas para decisiones sostenibles y responsables.</p>
+            </section>
+            <div class="dashboard">
+                <div class="card chart-container">
+                    <h2>Consumo de Agua</h2>
+                    <canvas id="chartCanvas"></canvas>
+                    <button class="btn">Ver más</button>
+                </div>
+                <div class="card stats">
+                    <h2>Calcula tu huella hídrica</h2>
+                    <form action="/calculate" method="POST" class="form">
+                        <label for="daily_consumption">Consumo diario (litros):</label>
+                        <input type="number" step="0.01" id="daily_consumption" name="daily_consumption" placeholder="Ejemplo: 150" required>
+                        <label for="days_remaining">Días restantes:</label>
+                        <input type="number" id="days_remaining" name="days_remaining" placeholder="Ejemplo: 30" required>
+                        <button type="submit" class="btn">Calcular</button>
+                    </form>
+                    {% if result %}
+                        <p class="result">Tu huella hídrica: <strong>{{ result }} litros</strong></p>
+                    {% elif error %}
+                        <p class="error">{{ error }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="btn search-btn">🔍</button>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
